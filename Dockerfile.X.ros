@@ -1,0 +1,29 @@
+# This is an auto generated Dockerfile for ros:indigo-perception
+# generated from templates/docker_images/create_ros_image.Dockerfile.em
+# generated on 2016-04-26 21:55:54 +0000
+FROM ros:jade-perception
+MAINTAINER marcino239
+
+# install ros packages
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y ros-jade-arbotix ros-jade-desktop-full
+
+# Install LXDE, VNC server and Firefox
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  firefox \
+  lxterminal
+
+# Replace 1000 with your user / group id
+RUN export uid=1000 gid=1000 && \
+    mkdir -p /home/developer && \
+    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:${uid}:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown ${uid}:${gid} -R /home/developer && \
+    usermod -a -G video developer
+
+USER developer
+ENV HOME /home/developer
+ENV QT_X11_NO_MITSHM 1
+CMD /bin/bash
