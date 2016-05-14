@@ -1,11 +1,11 @@
-all:
+tensorflow-build:
 	docker build -f Dockerfile.tensorflow.cudnn -t marcino239/tensorflow:0.8.0 .
 
-run: all
+tensorflow-run:
 	nvidia-docker run -it -p8888:8888 marcino239/tensorflow:0.8.0
 
-build-ros:
+ros-build:
 	docker build -t ros-jade -f Dockerfile.X.ros .
 
-run-ros:
-	docker run -ti --rm -e DISPLAY=$$DISPLAY --device=/dev/dri/card0:/dev/dri/card0 -v /tmp/.X11-unix:/tmp/.X11-unix ros-jade bash
+ros-run:
+	docker run -ti --rm -e DISPLAY=$$DISPLAY -v $$ROS_WS:/home/developer/ros_ws --device=/dev/dri/card0:/dev/dri/card0 -v /tmp/.X11-unix:/tmp/.X11-unix ros-jade bash
