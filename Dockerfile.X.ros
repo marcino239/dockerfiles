@@ -24,9 +24,8 @@ RUN export uid=1000 gid=1000 && \
     chown ${uid}:${gid} -R /home/developer && \
     usermod -a -G video developer
 
-COPY .bashrc /home/developer/.bashrc
-
-RUN echo "source /ros_entrypoint.sh" >> /home/developer/.bashrc && \
+RUN echo "source /opt/ros/jade/setup.bash" >> /home/developer/.bashrc && \
+    echo "source /home/developer/ros_ws/devel/setup.bash" >> /home/developer/.bashrc && \
     echo "cd ~" >> /home/developer/.bashrc
 
 USER developer
