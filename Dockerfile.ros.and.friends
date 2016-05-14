@@ -5,4 +5,26 @@ FROM ros:jade-perception
 MAINTAINER marcino239
 
 # install ros packages
-RUN apt-get update && apt-get install -y ros-jade-arbotix
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y ros-jade-arbotix ros-jade-desktop-full
+
+# Install LXDE, VNC server and Firefox
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  firefox \
+  lxde-core \
+  lxterminal \
+  tightvncserver
+# Set user for VNC server (USER is only for build)
+ENV USER root
+
+# Set default password
+COPY password.txt .
+RUN cat password.txt password.txt | vncpasswd && rm password.txt
+
+# Expose VNC port
+EXPOSE 5901
+
+# Copy VNC script that handles restarts
+COPY vnc.sh /opt/
+RUN chmod +x /opt/vnc.sh
+CMD ["/opt/vnc.sh"]
