@@ -19,7 +19,14 @@ RUN apt-get install -y ros-indigo-controller-manager \
     ros-indigo-joint-limits-interface \
     ros-indigo-transmission-interface \
     ros-indigo-control-toolbox \
-	ros-indigo-turtlebot-simulator
+	ros-indigo-turtlebot-simulator \
+    ros-indigo-moveit-ros-planning-interface \
+    ros-indigo-moveit-simple-grasps \
+    ros-indigo-moveit-ros-move-group \
+    ros-indigo-moveit-planners-ompl \
+    ros-indigo-moveit-ros-planning \
+    ros-indigo-moveit-core \
+    ros-indigo-moveit-ros-visualization
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
