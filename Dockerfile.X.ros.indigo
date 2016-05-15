@@ -1,7 +1,7 @@
 # This is an auto generated Dockerfile for ros:indigo-perception
 # generated from templates/docker_images/create_ros_image.Dockerfile.em
 # generated on 2016-04-26 21:55:54 +0000
-FROM ros:jade-perception
+FROM ros:indigo-perception
 MAINTAINER marcino239
 
 # Install sensible xterm
@@ -12,14 +12,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 # install ros packages
 RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y ros-jade-arbotix ros-jade-desktop-full
+  DEBIAN_FRONTEND=noninteractive apt-get install -y ros-indigo-arbotix ros-indigo-desktop-full
 
 # install additional ros packages
-RUN apt-get install -y ros-jade-controller-manager \
-    ros-jade-joint-limits-interface \
-    ros-jade-transmission-interface \
-    gazebo5 \
-    ros-jade-control-toolbox
+RUN apt-get install -y ros-indigo-controller-manager \
+    ros-indigo-joint-limits-interface \
+    ros-indigo-transmission-interface \
+    ros-indigo-control-toolbox \
+	ros-indigo-turtlebot-simulator
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
@@ -31,10 +31,9 @@ RUN export uid=1000 gid=1000 && \
     chown ${uid}:${gid} -R /home/developer && \
     usermod -a -G video developer
 
-RUN echo "source /opt/ros/jade/setup.bash" >> /home/developer/.bashrc && \
+RUN echo "source /opt/ros/indigo/setup.bash" >> /home/developer/.bashrc && \
     echo "source /home/developer/ros_ws/devel/setup.bash" >> /home/developer/.bashrc && \
     echo "cd ~" >> /home/developer/.bashrc
-
 
 USER developer
 ENV HOME /home/developer
