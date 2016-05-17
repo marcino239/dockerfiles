@@ -10,6 +10,7 @@ ros-build:
 ros-run:
 	docker run -it --rm -e DISPLAY=$$DISPLAY -v $$ROS_WS:/home/developer/ros_ws --device=/dev/dri/card0:/dev/dri/card0 -v /tmp/.X11-unix:/tmp/.X11-unix ros-jade
 
+#	wget https://bitbucket.org/osrf/gazebo_models/get/9ce1c9cfbc7c.zip
 ros-indigo-build:
 	docker build -t ros-indigo -f Dockerfile.X.ros.indigo .
 
