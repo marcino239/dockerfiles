@@ -15,4 +15,4 @@ ros-indigo-build:
 	docker build -t ros-indigo -f Dockerfile.X.ros.indigo .
 
 ros-indigo-run:
-	docker run -it --rm -e DISPLAY=$$DISPLAY -v $$ROS_WS:/home/developer/ros_ws --device=/dev/dri/card0:/dev/dri/card0 -v /tmp/.X11-unix:/tmp/.X11-unix ros-indigo
+	docker run -it --rm -e DISPLAY=$$DISPLAY -v $$ROS_WS:/home/developer/ros_ws --device=/dev/dri/card0:/dev/dri/card0 -v /tmp/.X11-unix:/tmp/.X11-unix ros-indigo bash
