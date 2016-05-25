@@ -27,6 +27,8 @@ RUN export uid=1000 gid=1000 && \
 RUN chmod +rx /run_jupyter.sh && chmod -R +r /notebooks
 
 USER developer
+ENV LD_LIBRARY_PATH /usr/local/cuda/targets/x86_64-linux/lib:/usr/local/nvidia/lib64
 ENV HOME /home/developer
 ENV QT_X11_NO_MITSHM 1
-CMD bash
+CMD jupyter notebook --ip `hostname -I` --no-browser
+#CMD bash
