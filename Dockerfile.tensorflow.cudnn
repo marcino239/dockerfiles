@@ -14,6 +14,8 @@ RUN wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubu
   dpkg -i $ML_REPO_PKG && \
   apt-get update && apt-get install -y libcudnn4 libcudnn4-dev
 
+RUN apt-get install -y git
+
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/developer && \
