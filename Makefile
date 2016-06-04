@@ -4,6 +4,12 @@ tensorflow-build:
 tensorflow-run:
 	nvidia-docker run -it -p 8888:8888 marcino239/tensorflow:0.8.0
 
+keras-build:
+	docker build -f Dockerfile.keras.cudnn -t marcino239/keras:latest .
+
+keras-run:
+	nvidia-docker run -it -v $$TF_WS:/notebooks -p 8888:8888 marcino239/keras:latest
+
 ros-build:
 	docker build -t ros-jade -f Dockerfile.X.ros .
 
