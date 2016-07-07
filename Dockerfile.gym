@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:0.8.0-gpu
+FROM tensorflow/tensorflow:r0.9rc0-gpu
 MAINTAINER marcino239.github.io
 
 RUN apt-get update && apt-get install -y wget nano
