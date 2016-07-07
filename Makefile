@@ -11,6 +11,12 @@ keras-run:
 	docker run -it -v $$TF_WS:/notebooks -p 8888:8888 --device=/dev/nvidia0:/dev/nvidia0 --device=/dev/nvidiactl:/dev/nvidiactl --device=/dev/nvidia-uvm:/dev/nvidia-uvm  -v /usr/lib/x86_64-linux-gnu/libcuda.so:/usr/lib/x86_64-linux-gnu/libcuda.so  -v /usr/lib/x86_64-linux-gnu/libcuda.so.1:/usr/lib/x86_64-linux-gnu/libcuda.so.1 -v /usr/lib/x86_64-linux-gnu/libcuda.so.352.93:/usr/lib/x86_64-linux-gnu/libcuda.so.352.93 marcino239/keras:latest
 #	nvidia-docker run -it -v $$TF_WS:/notebooks -p 8888:8888 marcino239/keras:latest
 
+pymc3-build:
+	docker build -t pymc3:latest -f Dockerfile.pymc .
+
+pymc3-run:
+	docker run -it -p 8888:8888 pymc3:latest
+
 gym-build:
 	docker build -f Dockerfile.gym -t marcino239/gym:latest .
 

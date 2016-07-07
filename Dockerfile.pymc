@@ -1,0 +1,32 @@
+# https://github.com/ogrisel/docker-openblas
+# openblas docker 
+FROM ogrisel/openblas
+MAINTAINER marcino239.github.io
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y wget nano libfreetype6-dev pkg-config git python-pip python-dev
+
+#RUN pip install numpy scipy pandas matplotlib jupyter
+
+ADD numpy-site.cfg /.numpy-site.cfg
+
+# Clone Keras repo and move into it 
+RUN cd /root && git clone https://github.com/pymc-devs/pymc3 && cd pymc3 && \
+  pip install -r requirements.txt && python setup.py install
+
+RUN pip install jupyter
+
+# Replace 1000 with your user / group id
+RUN export uid=1000 gid=1000 && \
+    mkdir -p /home/developer && \
+    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:${uid}:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown ${uid}:${gid} -R /home/developer && \
+    usermod -a -G video developer
+
+USER developer
+ENV HOME /home/developer
+CMD jupyter notebook --ip `hostname -I` --no-browser
+#CMD bash
